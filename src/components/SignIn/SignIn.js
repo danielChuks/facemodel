@@ -28,11 +28,12 @@ onSubmitSignIn = () => {
             password: this.state.signInPassword
         })
     }).then(response => response.json())
-      .then(data => {
-          if (data === "success"){
+      .then(user => {
+          if (user.id){
+            this.props.loadUser(user)
             this.props.onRouteChange('home')
           }
-      })
+      }).catch(err => console.log(err))
     }
     
 render(){
@@ -50,7 +51,7 @@ return(
                     type="email" 
                     name="email-address"  
                     id="email-address"
-                    onChange={this.onEmailChange}
+                    onChange={ this.onEmailChange }
                     />
             </div>
             <div className="mv3">
